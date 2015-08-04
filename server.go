@@ -36,6 +36,7 @@ func hello(w http.ResponseWriter, r *http.Request) {
 }
 
 func healthz(w http.ResponseWriter, r *http.Request) {
+	<-time.After(7 * time.Second)
 	log.Printf("/healthz is returning %d", response)
 	w.WriteHeader(response)
 	io.WriteString(w, "pong")
