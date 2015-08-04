@@ -21,6 +21,7 @@ func main() {
 	go func() {
 		<-time.After(2 * time.Minute)
 		response = 400
+		fmt.Printf("Time to start returning some errors.")
 	}()
 
 	log.Fatal(http.ListenAndServe(addr, nil))
@@ -31,6 +32,7 @@ func hello(w http.ResponseWriter, r *http.Request) {
 }
 
 func healthz(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("/healthz is returning %d", response)
 	w.WriteHeader(response)
 	io.WriteString(w, "pong")
 }
