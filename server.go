@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+var response = 200
+
 func main() {
 	http.HandleFunc("/", hello)
 	http.HandleFunc("/healthz", healthz)
@@ -18,7 +20,7 @@ func main() {
 
 	go func() {
 		<-time.After(2 * time.Minute)
-		panic("Ouch. I died a painful death at the hands of time.")
+		response = 400
 	}()
 
 	log.Fatal(http.ListenAndServe(addr, nil))
@@ -29,5 +31,6 @@ func hello(w http.ResponseWriter, r *http.Request) {
 }
 
 func healthz(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, "OK")
+	w.WriteHeader(response)
+	io.WriteString(w, "pong")
 }
