@@ -10,6 +10,7 @@ import (
 
 func main() {
 	http.HandleFunc("/", hello)
+	http.HandleFunc("/healthz", healthz)
 
 	addr := fmt.Sprintf(":%s", os.Getenv("PORT"))
 	log.Println(addr)
@@ -19,4 +20,8 @@ func main() {
 
 func hello(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, "Hello World!")
+}
+
+func healthz(w http.ResponseWriter, r *http.Request) {
+	io.WriteString(w, "OK")
 }
