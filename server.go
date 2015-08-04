@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
 func main() {
@@ -14,6 +15,11 @@ func main() {
 
 	addr := fmt.Sprintf(":%s", os.Getenv("PORT"))
 	log.Println(addr)
+
+	go func() {
+		<-time.After(2 * time.Minute)
+		panic("Ouch. I died a painful death at the hands of time.")
+	}()
 
 	log.Fatal(http.ListenAndServe(addr, nil))
 }
