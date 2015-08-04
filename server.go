@@ -18,6 +18,10 @@ func main() {
 	addr := fmt.Sprintf(":%s", os.Getenv("PORT"))
 	log.Println(addr)
 
+	log.Printf("Delaying startup by 30 seconds.")
+	<-time.After(30 * time.Second)
+	log.Println("Starting.")
+
 	go func() {
 		<-time.After(2 * time.Minute)
 		response = 400
